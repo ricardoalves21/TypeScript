@@ -6,6 +6,6 @@ export class Negociacoes {
         this.negociacoes.push(negociacao);
     }
     lista() {
-        return this.negociacoes;
+        return this.negociacoes; // Esse 'ReadonlyArray' não permite o uso de um método que modifica a lista (deleção de itens)
     }
 }
