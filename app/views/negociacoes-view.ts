@@ -1,6 +1,16 @@
-export class NegociacoesView { // o 'export' é utilizado porque depois precisaremos importar esta classe em outros locais
+import { Negociacao } from "../models/negociacao";
+import { Negociacoes } from "../models/negociacoes.js";
 
-  template() : string {
+export class NegociacoesView {
+  // o 'export' é utilizado porque depois precisaremos importar esta classe em outros locais
+
+  private elemento: HTMLElement;
+
+  constructor(seletor: string) {
+    this.elemento = document.querySelector(seletor);
+  }
+
+  template(model: Negociacoes): string {
     return `
       <table class="table table-hover table-bordered">
         <thead>
@@ -11,8 +21,26 @@ export class NegociacoesView { // o 'export' é utilizado porque depois precisar
           </tr>
         </thead>
         <tbody>
+          ${model
+            .lista()
+            .map((negociacao) => {
+              return `
+                <tr>
+                  <td>${new Intl.DateTimeFormat().format(negociacao.data)}</td>
+                  <td>${negociacao.quantidade}</td>
+                  <td>${negociacao.valor}</td>
+                </tr>
+              `;
+            })
+            .join("")}
         </tbody>
       </table>
     `;
+  }
+
+  update(model: Negociacoes): void {
+    const template = this.template(model);
+    console.log(template);
+    this.elemento.innerHTML = template;
   }
 }
