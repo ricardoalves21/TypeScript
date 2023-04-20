@@ -1,6 +1,5 @@
 import { View } from "./view.js";
 export class NegociacoesView extends View {
-    // o 'export' é utilizado porque depois precisaremos importar esta classe em outros locais
     template(model) {
         return `
       <table class="table table-hover table-bordered">
